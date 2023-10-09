@@ -31,4 +31,12 @@ function active_link() {
     })
 }
 
+//Fonction pour corriger le bug de l'année dans le footer
+function footer_year() {
+  let footer = document.querySelector('.copyrights')
+  let date = new Date().getFullYear()
+  footer.innerHTML = `Copyright 2014 - ${date}, GameOn Inc.`
+}
+
+footer_year()
 active_link()
