@@ -51,118 +51,83 @@ function closeModal() {
 active_link()
 footer_year()
 closeModal()
-/*
 
 function validate_names(name) {
   let element = document.getElementById(name)
   let condition = /^[a-zA-Z]{2,}$/
-  if (condition.test(element.value)) {
-    element.style.border = '2px solid green'
-  } else {
-    element.style.border = '2px solid red'
-    element.parentNode.attributes.push('data-error-visible')
-    element.parentNode.attributes[element.parentNode.attributes.length - 1].value = 'true'
-    console.log(element.parentNode.attributes)
+  if (!condition.test(element.value)) {
+    element.parentNode.setAttribute('data-error-visible', 'true')
     return false
+  } else {
+    element.parentNode.setAttribute('data-error-visible', 'false')
+    return true
   }
-  return true
 }
 
 function validate_email() {
   let element = document.getElementById('email')
   let condition = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-
-  if (condition.test(element.value)) {
-    element.style.border = '2px solid green'
-  } else {
-    element.style.border = '2px solid red'
-
+  if (!condition.test(element.value)) {
+    element.parentNode.setAttribute('data-error-visible', 'true')
     return false
+  } else {
+    element.parentNode.setAttribute('data-error-visible', 'false')
+    return true
   }
-  return true
 }
 
 function validate_birthdate() {
-  let birthdate = document.getElementById('birthdate')
-  if (!birthdate.value) {
-    document.getElementById('birthdateError').textContent = 'Vous devez entrer votre date de naissance.'
-    birthdate.style.border = '2px solid red'
-    return false
-  }
-
-  let today = new Date()
-  let diff = today - new Date(birthdate.value)
-  if (diff < 1000 * 60 * 60 * 24 * 365 * 18) {
-    document.getElementById('birthdateError').textContent = 'Vous devez avoir 18 ans ou plus.'
-    birthdate.style.border = '2px solid red'
+  let element = document.getElementById('birthdate')
+  if (!element.value) {
+    element.parentNode.setAttribute('data-error-visible', 'true')
     return false
   } else {
-    birthdate.style.border = '2px solid green'
+    element.parentNode.setAttribute('data-error-visible', 'false')
     return true
   }
 }
 
 function validate_quantity() {
-  let quantity = document.getElementById('quantity')
-  if (!quantity.value) {
-    document.getElementById('quantityError').textContent = 'Vous devez entrer un nombre de concours.'
-    quantity.style.border = '2px solid red'
-    return false
-  } else if (quantity.value < 0 || quantity.value > 99) {
-    document.getElementById('quantityError').textContent = 'Vous devez entrer une valeur entre 0 et 99.'
-    quantity.style.border = '2px solid red'
+  let element = document.getElementById('quantity')
+  if (!element.value) {
+    element.parentNode.setAttribute('data-error-visible', 'true')
     return false
   } else {
-    quantity.style.border = '2px solid green'
+    element.parentNode.setAttribute('data-error-visible', 'false')
     return true
   }
 }
 
 function validate_location() {
-  let location = document.querySelector('.checkbox-input:checked')
-  if (location == null) {
-    document.getElementById('locationError').textContent = 'Vous devez choisir un emplacement.'
+  let element = document.querySelectorAll('.checkbox-input[type="radio"]')
+  let checked = Array.from(element).find(element => element.checked)
+
+  if (!checked) {
+    element[0].parentNode.setAttribute('data-error-visible', 'true')
     return false
   } else {
+    element[0].parentNode.setAttribute('data-error-visible', 'false')
     return true
   }
 }
 
 function validate_conditions() {
-  let conditions = document.getElementById('checkbox1').checked
-  if (!conditions) {
-    document.getElementById('conditionsError').textContent = 'Vous devez accepter les conditions dutilisation.'
+  let element = document.getElementById('checkbox1')
+
+  if (!element.checked) {
+    element.parentNode.setAttribute('data-error-visible', 'true')
     return false
   } else {
+    element.parentNode.setAttribute('data-error-visible', 'false')
     return true
   }
 }
-*/
 
-/*
-document.getElementById('first').addEventListener('input', () => {
-  validate_names('first')
-})
-document.getElementById('last').addEventListener('input', () => {
-  validate_names('last')
-})
-document.getElementById('email').addEventListener('input', () => {
-  validate_email()
-})
-document.getElementById('birthdate').addEventListener('input', () => {
-  validate_birthdate()
-})
-document.getElementById('quantity').addEventListener('input', () => {
-  validate_quantity()
-})
-document.getElementById('checkbox1').addEventListener('input', () => {
-  validate_conditions()
-})
 document.querySelector('form[name="reserve"]').addEventListener('submit', e => {
   e.preventDefault()
   if (validate()) {
-    document.querySelector('form[name="reserve"]').style.display = 'none'
-    document.querySelector('form[name="reserve"]').innerHTML = '<h1>Merci !</h1>'
+    document.querySelector('form[name="reserve"]').innerHTML = ''
+    document.querySelector('form[name="reserve"]').classList.add('confirmation')
   }
 })
 
@@ -178,4 +143,3 @@ function validate() {
   if (valid_all.includes(false)) return false
   else return true
 }
-*/

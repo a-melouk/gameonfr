@@ -232,7 +232,6 @@ label {
   font-size: 17px;
   font-weight: normal;
   display: inline-block;
-  /* margin-bottom: 11px;*/
 }
 
 input {
@@ -248,7 +247,7 @@ input {
   border-radius: 8px;
   font-size: 20px;
   min-height: 48px;
-  margin-top: 17px;
+  margin-top: 7px;
 }
 
 .formData[data-error]::after {
@@ -256,25 +255,8 @@ input {
   font-size: 0.4em;
   color: #e54858;
   display: block;
-  /* margin-top: 7px; */
-  /* margin-bottom: 7px; */
   text-align: left;
-  /* line-height: 0.3; */
   opacity: 0;
-  transition: 0.3s;
-  margin-top: 4px;
-}
-
-.error {
-  /* content: attr(data-error); */
-  font-size: 0.4em;
-  color: #e54858;
-  display: block;
-  margin-top: 7px;
-  margin-bottom: 7px;
-  text-align: left;
-  /* line-height: 0.3; */
-  /* opacity: 0; */
   transition: 0.3s;
 }
 
@@ -285,12 +267,7 @@ input {
 .formData[data-error-visible='true'] .text-control {
   border: 2px solid #e54858;
 }
-/* 
-input[data-error]::after {
-    content: attr(data-error);
-    font-size: 0.4em;
-    color: red;
-} */
+
 .checkbox-label,
 .checkbox2-label {
   position: relative;
@@ -605,15 +582,20 @@ footer {
 }
 
 .formData {
-  display: flex;
-  flex-direction: column;
-  /* gap: 17px; */
-  height: 97px;
-  justify-content: space-between;
+  margin-bottom: 8px;
 }
 
-form {
+.confirmation {
   display: flex;
   flex-direction: column;
-  gap: 11.65px;
+  height: 500px;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmation::after {
+  content: 'Merci pour votre inscription !';
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
