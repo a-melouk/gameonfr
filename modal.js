@@ -25,9 +25,9 @@ function launchModal() {
 function active_link() {
   let navbar = document.querySelector('.main-navbar')
   let children = navbar.children
-  for (let i = 0; i < 5; i++)
+  for (let i = 1; i < 6; i++)
     children[i].addEventListener('click', () => {
-      for (let j = 0; j < 5; j++) children[j].classList.remove('active')
+      for (let j = 1; j < 6; j++) children[j].classList.remove('active')
       children[i].classList.add('active')
     })
 }
@@ -126,8 +126,16 @@ function validate_conditions() {
 document.querySelector('form[name="reserve"]').addEventListener('submit', e => {
   e.preventDefault()
   if (validate()) {
-    document.querySelector('form[name="reserve"]').innerHTML = ''
-    document.querySelector('form[name="reserve"]').classList.add('confirmation')
+    let body = document.querySelector('body')
+    /* document.querySelector('form[name="reserve"]').innerHTML = ''
+    document.querySelector('form[name="reserve"]').classList.add('confirmation') */
+    let close = document.querySelector('.close').cloneNode(true)
+    body.innerHTML = ''
+    let confirmation = document.createElement('div')
+    confirmation.classList.add('confirmation')
+    body.appendChild(close)
+    body.appendChild(confirmation)
+    // document.querySelector('body').classList.add('confirmation')
   }
 })
 
