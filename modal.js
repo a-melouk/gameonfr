@@ -78,11 +78,16 @@ function validate_email() {
 
 function validate_birthdate() {
   let element = document.getElementById('birthdate')
+
   if (!element.value) {
     element.parentNode.setAttribute('data-error-visible', 'true')
     return false
   } else {
-    element.parentNode.setAttribute('data-error-visible', 'false')
+    let difference = (Date.now() - new Date(element.value)) / (1000 * 60 * 60 * 24 * 365)
+    if (difference < 18) {
+      element.parentNode.setAttribute('data-error-visible', 'true')
+      return false
+    } else element.parentNode.setAttribute('data-error-visible', 'false')
     return true
   }
 }
@@ -128,15 +133,12 @@ document.querySelector('form[name="reserve"]').addEventListener('submit', e => {
   if (validate()) {
     let main = document.querySelector('main')
     let footer = document.querySelector('footer')
-    /* document.querySelector('form[name="reserve"]').innerHTML = ''
-    document.querySelector('form[name="reserve"]').classList.add('confirmation') */
     main.innerHTML = ''
     main.classList.add('closed-form')
     footer.classList.add('closed-form')
     let confirmation = document.createElement('div')
     confirmation.classList.add('confirmation')
     main.appendChild(confirmation)
-    // document.querySelector('body').classList.add('confirmation')
   }
 })
 
