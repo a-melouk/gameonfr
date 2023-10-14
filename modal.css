@@ -132,6 +132,19 @@ main {
   text-align: justify;
 }
 
+main.closed-form {
+  padding: 30px;
+  margin: 0px;
+  height: 50vh;
+  width: 80vw;
+  align-self: center;
+}
+
+footer.closed-form {
+  position: absolute;
+  bottom: 0;
+}
+
 .modal-btn {
   font-size: 145%;
   background: #fe142f;
@@ -502,6 +515,7 @@ input {
 
 .hero-headline {
   font-size: 6rem;
+  font-size: 4.9rem;
   font-weight: normal;
   white-space: nowrap;
 }

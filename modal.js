@@ -126,15 +126,16 @@ function validate_conditions() {
 document.querySelector('form[name="reserve"]').addEventListener('submit', e => {
   e.preventDefault()
   if (validate()) {
-    let body = document.querySelector('body')
+    let main = document.querySelector('main')
+    let footer = document.querySelector('footer')
     /* document.querySelector('form[name="reserve"]').innerHTML = ''
     document.querySelector('form[name="reserve"]').classList.add('confirmation') */
-    let close = document.querySelector('.close').cloneNode(true)
-    body.innerHTML = ''
+    main.innerHTML = ''
+    main.classList.add('closed-form')
+    footer.classList.add('closed-form')
     let confirmation = document.createElement('div')
     confirmation.classList.add('confirmation')
-    body.appendChild(close)
-    body.appendChild(confirmation)
+    main.appendChild(confirmation)
     // document.querySelector('body').classList.add('confirmation')
   }
 })
