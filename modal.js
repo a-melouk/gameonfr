@@ -1,3 +1,4 @@
+//function to make the page responsive by adding a class to the topnav
 function editNav() {
   var x = document.getElementById('myTopnav')
   if (x.className === 'topnav') {
@@ -7,130 +8,99 @@ function editNav() {
   }
 }
 
-// DOM Elements
 const modal = document.querySelector('.bground')
 const modalBtn = document.querySelectorAll('.modal-btn')
-const formData = document.querySelectorAll('.formData')
+// const formData = document.querySelectorAll('.formData')
 
-// launch modal event
 modalBtn.forEach(btn => btn.addEventListener('click', launchModal))
 
-// launch modal form
 function launchModal() {
   modal.classList.remove('closed')
   modal.classList.add('opened')
 }
 
-//Fonction pour changer la classe d'un lien quand il est cliqué
-function active_link() {
+function activeLink() {
   let navbar = document.querySelector('.main-navbar')
   let children = navbar.children
-  for (let i = 1; i < 6; i++)
+  for (let i = 1; i < 6; i++) {
     children[i].addEventListener('click', () => {
       for (let j = 1; j < 6; j++) children[j].classList.remove('active')
       children[i].classList.add('active')
     })
+  }
 }
 
-//Fonction pour corriger le bug de l'année dans le footer
-function footer_year() {
+function updateFooterYear() {
   let footer = document.querySelector('.copyrights')
   let date = new Date().getFullYear()
   footer.innerHTML = `Copyright 2014 - ${date}, GameOn Inc.`
 }
 
-//Fonction pour fermer la modal
 function closeModal() {
-  let close_btn = document.querySelector('.close')
-  close_btn.addEventListener('click', () => {
+  let closeBtn = document.querySelector('.close')
+  closeBtn.addEventListener('click', () => {
     modal.classList.remove('opened')
     modal.classList.add('closed')
   })
 }
 
-active_link()
-footer_year()
+activeLink()
+updateFooterYear()
 closeModal()
 
-function validate_names(name) {
+function makeErrorVisible(element, isVisible) {
+  element.parentNode.setAttribute('data-error-visible', isVisible)
+  return !isVisible
+}
+
+function validateNames(name) {
   let element = document.getElementById(name)
   let condition = /^[a-zA-Z]{2,}$/
-  if (!condition.test(element.value)) {
-    element.parentNode.setAttribute('data-error-visible', 'true')
-    return false
-  } else {
-    element.parentNode.setAttribute('data-error-visible', 'false')
-    return true
-  }
+  if (!condition.test(element.value)) return makeErrorVisible(element, true)
+  else return makeErrorVisible(element, false)
 }
 
-function validate_email() {
+function validateEmail() {
   let element = document.getElementById('email')
   let condition = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-  if (!condition.test(element.value)) {
-    element.parentNode.setAttribute('data-error-visible', 'true')
-    return false
-  } else {
-    element.parentNode.setAttribute('data-error-visible', 'false')
-    return true
-  }
+  if (!condition.test(element.value)) return makeErrorVisible(element, true)
+  return makeErrorVisible(element, false)
 }
 
-function validate_birthdate() {
+function validateBirthdate() {
   let element = document.getElementById('birthdate')
-
-  if (!element.value) {
-    element.parentNode.setAttribute('data-error-visible', 'true')
-    return false
-  } else {
+  if (!element.value) return makeErrorVisible(element, true)
+  else {
     let difference = (Date.now() - new Date(element.value)) / (1000 * 60 * 60 * 24 * 365)
-    if (difference < 18) {
-      element.parentNode.setAttribute('data-error-visible', 'true')
-      return false
-    } else element.parentNode.setAttribute('data-error-visible', 'false')
-    return true
+    if (difference < 18) return makeErrorVisible(element, true)
+    else return makeErrorVisible(element, false)
   }
 }
 
-function validate_quantity() {
+function validateQuantity() {
   let element = document.getElementById('quantity')
-  if (!element.value) {
-    element.parentNode.setAttribute('data-error-visible', 'true')
-    return false
-  } else {
-    element.parentNode.setAttribute('data-error-visible', 'false')
-    return true
-  }
+  if (!element.value) return makeErrorVisible(element, true)
+  else return makeErrorVisible(element, false)
 }
 
-function validate_location() {
+function validateLocation() {
   let element = document.querySelectorAll('.checkbox-input[type="radio"]')
   let checked = Array.from(element).find(element => element.checked)
 
-  if (!checked) {
-    element[0].parentNode.setAttribute('data-error-visible', 'true')
-    return false
-  } else {
-    element[0].parentNode.setAttribute('data-error-visible', 'false')
-    return true
-  }
+  if (!checked) return makeErrorVisible(element[0], true)
+  else return makeErrorVisible(element[0], false)
 }
 
-function validate_conditions() {
+function validateConditions() {
   let element = document.getElementById('checkbox1')
 
-  if (!element.checked) {
-    element.parentNode.setAttribute('data-error-visible', 'true')
-    return false
-  } else {
-    element.parentNode.setAttribute('data-error-visible', 'false')
-    return true
-  }
+  if (!element.checked) return makeErrorVisible(element, true)
+  else return makeErrorVisible(element, false)
 }
 
 document.querySelector('form[name="reserve"]').addEventListener('submit', e => {
   e.preventDefault()
-  if (validate()) {
+  if (validateForm()) {
     let main = document.querySelector('main')
     let footer = document.querySelector('footer')
     main.innerHTML = ''
@@ -142,15 +112,15 @@ document.querySelector('form[name="reserve"]').addEventListener('submit', e => {
   }
 })
 
-function validate() {
-  let valid_first = validate_names('first')
-  let valid_last = validate_names('last')
-  let valid_email = validate_email()
-  let valid_birthdate = validate_birthdate()
-  let valid_quantity = validate_quantity()
-  let valid_location = validate_location()
-  let valid_conditions = validate_conditions()
-  let valid_all = [valid_first, valid_last, valid_email, valid_birthdate, valid_quantity, valid_location, valid_conditions]
-  if (valid_all.includes(false)) return false
+function validateForm() {
+  let validFirst = validateNames('first')
+  let validLast = validateNames('last')
+  let validEmail = validateEmail()
+  let validBirthdate = validateBirthdate()
+  let validQuantity = validateQuantity()
+  let validLocation = validateLocation()
+  let validConditions = validateConditions()
+  let validAll = [validFirst, validLast, validEmail, validBirthdate, validQuantity, validLocation, validConditions]
+  if (validAll.includes(false)) return false
   else return true
 }
