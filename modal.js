@@ -1,4 +1,7 @@
 //function to make the page responsive by adding a class to the topnav
+let menu = document.querySelector('.icon')
+menu.addEventListener('click', editNav)
+
 function editNav() {
   var x = document.getElementById('myTopnav')
   if (x.className === 'topnav') {
@@ -10,7 +13,6 @@ function editNav() {
 
 const modal = document.querySelector('.bground')
 const modalBtn = document.querySelectorAll('.modal-btn')
-// const formData = document.querySelectorAll('.formData')
 
 modalBtn.forEach(btn => btn.addEventListener('click', launchModal))
 
